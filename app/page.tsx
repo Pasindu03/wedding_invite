@@ -1,5 +1,5 @@
-import { LanguageSelector } from "@/components/language-selector";
+import { EnvelopeIntro } from "@/components/envelope-intro";
 
 export default function HomePage() {
-  return <LanguageSelector />;
+  return <EnvelopeIntro />;
 }
