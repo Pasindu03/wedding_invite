@@ -16,32 +16,49 @@ const sparkles = [
 export function EnvelopeIntro() {
   const [opened, setOpened] = useState(false);
 
+  const openInvitation = () => {
+    setOpened(true);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    // Enter or Space opens the invitation
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openInvitation();
+    }
+  };
+
   return (
     <div className="relative min-h-dvh overflow-hidden bg-champagne">
       {!opened && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 py-8">
           <div className="letter-stage-wrapper">
             <div className="letter-glow" aria-hidden="true" />
+
             {sparkles.map((s, i) => (
               <span
                 key={i}
                 className="letter-sparkle"
-                style={{ left: s.left, top: s.top, animationDelay: s.delay }}
+                style={{
+                  left: s.left,
+                  top: s.top,
+                  animationDelay: s.delay,
+                }}
                 aria-hidden="true"
               />
             ))}
 
             <div
-              className={`letter-stage ${opened ? "letter-stage--open" : ""}`}
-              onClick={() => setOpened(true)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setOpened(true);
-                }
-              }}
+              className={`letter-stage ${
+                opened ? "letter-stage--open" : ""
+              }`}
+              role="button"
+              tabIndex={0}
+              aria-label="Open wedding invitation"
+              onClick={openInvitation}
+              onKeyDown={handleKeyDown}
             >
-              {/* Opened letter behind (revealed when doors split) */}
+              {/* Opened letter behind */}
               <img
                 src="/images/letter-opened.svg"
                 alt=""
@@ -49,7 +66,7 @@ export function EnvelopeIntro() {
                 aria-hidden="true"
               />
 
-              {/* Left door (closed letter left half) */}
+              {/* Left door */}
               <div className="letter-door letter-door--left">
                 <img
                   src="/images/letter-closed.svg"
@@ -59,7 +76,7 @@ export function EnvelopeIntro() {
                 />
               </div>
 
-              {/* Right door (closed letter right half) */}
+              {/* Right door */}
               <div className="letter-door letter-door--right">
                 <img
                   src="/images/letter-closed.svg"
@@ -74,7 +91,10 @@ export function EnvelopeIntro() {
 
           <div className="letter-hint mt-8 flex flex-col items-center gap-2 text-center">
             <Mail className="size-4 text-rose" aria-hidden="true" />
-            <p className="text-sm font-medium text-ink/70">Click to open your invitation</p>
+
+            <p className="text-sm font-medium text-ink/70">
+              Click or press Enter to open your invitation
+            </p>
           </div>
         </div>
       )}
