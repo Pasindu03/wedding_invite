@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" fill="none">
+  <defs>
+    <linearGradient id="paperGrad2" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#fff8eb"/>
+      <stop offset="100%" stop-color="#f2e6cf"/>
+    </linearGradient>
+    <linearGradient id="flapOpenGrad" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#e6d4b0"/>
+      <stop offset="100%" stop-color="#dac5a2"/>
+    </linearGradient>
+    <linearGradient id="letterGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffcf2"/>
+      <stop offset="100%" stop-color="#fff5dc"/>
+    </linearGradient>
+    <filter id="softShadow2" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#4d3a2b" flood-opacity="0.18"/>
+    </filter>
+    <filter id="letterShadow" x="-10%" y="-5%" width="120%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#4d3a2b" flood-opacity="0.12"/>
+    </filter>
+    <filter id="flapShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#4d3a2b" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Envelope body (back, visible behind letter) -->
+  <g filter="url(#softShadow2)">
+    <rect x="40" y="120" width="400" height="400" rx="18" fill="url(#paperGrad2)" stroke="#dac5a2" stroke-width="1.5"/>
+  </g>
+
+  <!-- Opened flap pointing up (triangle pointing up from top edge) -->
+  <path d="M40 120 L440 120 L240 10 Z" fill="url(#flapOpenGrad)" stroke="#c9b48e" stroke-width="1" filter="url(#flapShadow)"/>
+  <!-- Flap highlight -->
+  <path d="M58 115 L240 22 L422 115" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+
+  <!-- Envelope pocket lines (still visible) -->
+  <path d="M40 120 L240 320 L40 520" stroke="#dac5a2" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M440 120 L240 320 L440 520" stroke="#dac5a2" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+  <!-- Letter sliding out from envelope -->
+  <g filter="url(#letterShadow)">
+    <rect x="70" y="60" width="340" height="380" rx="8" fill="url(#letterGrad)" stroke="#dac5a2" stroke-width="1"/>
+  </g>
+
+  <!-- Letter content -->
+  <!-- Top heart -->
+  <path d="M240 110 C234 102 222 102 222 114 C222 124 240 140 240 140 C240 140 258 124 258 114 C258 102 246 102 240 110 Z" fill="#9b6258" opacity="0.8"/>
+
+  <!-- Eyebrow text -->
+  <text x="240" y="175" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#9b6258" text-anchor="middle" letter-spacing="3">TOGETHER WITH THEIR FAMILIES</text>
+
+  <!-- Names -->
+  <text x="240" y="225" font-family="Georgia, serif" font-size="36" fill="#352d29" text-anchor="middle">Kavindi</text>
+  <text x="240" y="260" font-family="Georgia, serif" font-size="20" fill="#9b6258" text-anchor="middle">&amp;</text>
+  <text x="240" y="300" font-family="Georgia, serif" font-size="36" fill="#352d29" text-anchor="middle">Gamindu</text>
+
+  <!-- Divider -->
+  <line x1="190" y1="325" x2="290" y2="325" stroke="#dac5a2" stroke-width="1"/>
+
+  <!-- Date -->
+  <text x="240" y="355" font-family="Georgia, serif" font-size="16" fill="#352d29" text-anchor="middle" letter-spacing="2">19 November</text>
+
+  <!-- Bottom heart -->
+  <path d="M240 390 C236 385 228 385 228 393 C228 400 240 410 240 410 C240 410 252 400 252 393 C252 385 244 385 240 390 Z" fill="#9b6258" opacity="0.6"/>
+
+  <!-- Decorative corners on letter -->
+  <path d="M82 72 L82 88 M82 72 L98 72" stroke="#9b6258" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+  <path d="M398 72 L398 88 M398 72 L382 72" stroke="#9b6258" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+  <path d="M82 428 L82 412 M82 428 L98 428" stroke="#9b6258" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+  <path d="M398 428 L398 412 M398 428 L382 428" stroke="#9b6258" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Bottom of envelope body showing below letter -->
+  <text x="240" y="488" font-family="Georgia, serif" font-size="11" fill="#9b6258" text-anchor="middle" letter-spacing="3">WEDDING INVITATION</text>
+  <text x="240" y="508" font-family="Georgia, serif" font-size="10" fill="#dac5a2" text-anchor="middle" letter-spacing="2">Click to enter</text>
+</svg>

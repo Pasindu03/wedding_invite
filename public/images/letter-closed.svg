@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" fill="none">
+  <defs>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#fff8eb"/>
+      <stop offset="100%" stop-color="#f2e6cf"/>
+    </linearGradient>
+    <linearGradient id="flapGrad" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#e6d4b0"/>
+      <stop offset="100%" stop-color="#dac5a2"/>
+    </linearGradient>
+    <linearGradient id="sealGrad" x1="0.3" y1="0.3" x2="0.7" y2="0.8">
+      <stop offset="0%" stop-color="#c4786e"/>
+      <stop offset="100%" stop-color="#9b6258"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-10%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#4d3a2b" flood-opacity="0.18"/>
+    </filter>
+    <filter id="sealShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#9b6258" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Envelope body -->
+  <g filter="url(#softShadow)">
+    <rect x="40" y="80" width="400" height="440" rx="18" fill="url(#paperGrad)" stroke="#dac5a2" stroke-width="1.5"/>
+  </g>
+
+  <!-- Envelope left pocket line -->
+  <path d="M40 80 L240 300 L40 520" stroke="#dac5a2" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <!-- Envelope right pocket line -->
+  <path d="M440 80 L240 300 L440 520" stroke="#dac5a2" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- Closed flap (triangle pointing down, covering top half) -->
+  <path d="M40 80 L440 80 L240 290 Z" fill="url(#flapGrad)" stroke="#c9b48e" stroke-width="1" filter="url(#softShadow)"/>
+
+  <!-- Subtle flap highlight -->
+  <path d="M55 92 L240 275 L425 92" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+
+  <!-- Wax seal -->
+  <g filter="url(#sealShadow)">
+    <circle cx="240" cy="260" r="38" fill="url(#sealGrad)"/>
+    <circle cx="240" cy="260" r="38" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <!-- Heart in seal -->
+    <path d="M240 252 C236 246 228 246 228 255 C228 262 240 272 240 272 C240 272 252 262 252 255 C252 246 244 246 240 252 Z" fill="#fff8eb" opacity="0.9"/>
+  </g>
+
+  <!-- Decorative corners -->
+  <path d="M55 95 L55 115 M55 95 L75 95" stroke="#9b6258" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M425 95 L425 115 M425 95 L405 95" stroke="#9b6258" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M55 505 L55 485 M55 505 L75 505" stroke="#9b6258" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+  <path d="M425 505 L425 485 M425 505 L405 505" stroke="#9b6258" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Names on envelope -->
+  <text x="240" y="430" font-family="Georgia, serif" font-size="24" fill="#352d29" text-anchor="middle" letter-spacing="2">Kavindi &amp; Gamindu</text>
+  <text x="240" y="460" font-family="Georgia, serif" font-size="13" fill="#9b6258" text-anchor="middle" letter-spacing="4">19 NOVEMBER</text>
+</svg>
