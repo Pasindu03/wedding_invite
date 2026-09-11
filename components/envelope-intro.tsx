@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useState } from "react";
 import { LanguageSelector } from "./language-selector";
 
@@ -20,16 +20,7 @@ export function EnvelopeIntro() {
     <div className="relative min-h-dvh overflow-hidden bg-champagne">
       {!opened && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 py-8">
-          <div
-            className={`letter-stage letter-clickable ${opened ? "letter-stage--open" : ""}`}
-            onClick={() => setOpened(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setOpened(true);
-              }
-            }}
-          >
+          <div className="letter-stage-wrapper">
             <div className="letter-glow" aria-hidden="true" />
             {sparkles.map((s, i) => (
               <span
@@ -40,19 +31,48 @@ export function EnvelopeIntro() {
               />
             ))}
 
-            <div className="letter-layer letter-float">
-              {/* Closed letter (visible first) */}
-              <div className="letter-layer letter-layer--closed">
-                <img src="/images/letter-closed.svg" alt="Sealed wedding invitation envelope" className="letter-image" />
+            <div
+              className={`letter-stage ${opened ? "letter-stage--open" : ""}`}
+              onClick={() => setOpened(true)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setOpened(true);
+                }
+              }}
+            >
+              {/* Opened letter behind (revealed when doors split) */}
+              <img
+                src="/images/letter-opened.svg"
+                alt=""
+                className="letter-image letter-image--back"
+                aria-hidden="true"
+              />
+
+              {/* Left door (closed letter left half) */}
+              <div className="letter-door letter-door--left">
+                <img
+                  src="/images/letter-closed.svg"
+                  alt="Sealed golden wedding invitation"
+                  className="letter-image letter-image--door"
+                  style={{ objectPosition: "left center" }}
+                />
               </div>
-              {/* Opened letter (hidden, crossfades in on click) */}
-              <div className="letter-layer letter-layer--opened">
-                <img src="/images/letter-opened.svg" alt="Opened wedding invitation letter" className="letter-image" />
+
+              {/* Right door (closed letter right half) */}
+              <div className="letter-door letter-door--right">
+                <img
+                  src="/images/letter-closed.svg"
+                  alt=""
+                  className="letter-image letter-image--door"
+                  style={{ objectPosition: "right center" }}
+                  aria-hidden="true"
+                />
               </div>
             </div>
           </div>
 
-          <div className="letter-hint mt-10 flex flex-col items-center gap-2 text-center">
+          <div className="letter-hint mt-8 flex flex-col items-center gap-2 text-center">
             <Mail className="size-4 text-rose" aria-hidden="true" />
             <p className="text-sm font-medium text-ink/70">Click to open your invitation</p>
           </div>

@@ -160,78 +160,102 @@ body { margin: 0; min-width: 320px; background: #fbf4e6; }
   100% { transform: translate3d(12px, -38px, 0) scale(1.15); opacity: 0.16; }
 }
 
-/* ===== Letter Intro ===== */
+/* ===== Letter Intro (door-split) ===== */
+
+.letter-stage-wrapper {
+  position: relative;
+  width: clamp(260px, 78vw, 400px);
+  animation: letterFloat 4s ease-in-out infinite;
+}
 
 .letter-stage {
   position: relative;
-  width: clamp(260px, 78vw, 400px);
+  width: 100%;
+  perspective: 1600px;
+  cursor: pointer;
 }
 
 .letter-image {
-  width: 100%;
-  height: auto;
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
 }
 
-.letter-layer {
+.letter-image--back {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: auto;
+  z-index: 0;
 }
 
-.letter-layer--closed {
-  opacity: 1;
-  transform: scale(1);
-  transition:
-    opacity 500ms ease 400ms,
-    transform 900ms cubic-bezier(0.4, 0, 0.2, 1) 200ms;
+.letter-door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
   z-index: 2;
+  transition: transform 1200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 600ms ease 900ms;
 }
 
-.letter-layer--opened {
+.letter-door--left {
+  left: 0;
+  transform-origin: left center;
+}
+
+.letter-door--right {
+  right: 0;
+  transform-origin: right center;
+}
+
+.letter-image--door {
+  width: 200%;
+  height: auto;
+  display: block;
+}
+
+.letter-door--left .letter-image--door {
+  margin-left: 0;
+  object-fit: cover;
+}
+
+.letter-door--right .letter-image--door {
+  margin-left: -100%;
+  object-fit: cover;
+}
+
+/* When opened: doors swing out and fade */
+.letter-stage--open .letter-door--left {
+  transform: rotateY(-105deg) translateX(-12px);
   opacity: 0;
-  transform: scale(0.92);
-  transition:
-    opacity 600ms ease 200ms,
-    transform 900ms cubic-bezier(0.34, 1.26, 0.64, 1) 300ms;
-  z-index: 1;
 }
 
-.letter-stage--open .letter-layer--closed {
+.letter-stage--open .letter-door--right {
+  transform: rotateY(105deg) translateX(12px);
   opacity: 0;
-  transform: scale(1.12) translateY(-30px);
-  pointer-events: none;
 }
 
-.letter-stage--open .letter-layer--opened {
+/* The back image gets a subtle reveal glow */
+.letter-image--back {
+  opacity: 0.7;
+  transition: opacity 800ms ease 400ms, transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 300ms;
+}
+
+.letter-stage--open .letter-image--back {
   opacity: 1;
-  transform: scale(1);
-  z-index: 2;
+  transform: scale(1.04);
 }
 
-.letter-stage--open .letter-layer--closed {
-  z-index: 1;
-}
-
-.letter-clickable {
-  cursor: pointer;
-}
-
-.letter-float {
-  animation: letterFloat 4s ease-in-out infinite;
+/* Stop floating when open */
+.letter-stage-wrapper.letter-stage--open,
+.letter-stage--open ~ .letter-stage-wrapper {
+  animation: none;
 }
 
 @keyframes letterFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
-}
-
-.letter-stage--open .letter-float {
-  animation: none;
 }
 
 .letter-glow {
@@ -285,7 +309,7 @@ body { margin: 0; min-width: 320px; background: #fbf4e6; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .animate-intro, .reveal, .gold-particle, .letter-float, .letter-glow, .letter-sparkle, .letter-hint { animation: none; opacity: 1; transform: none; transition: none; }
+  .animate-intro, .reveal, .gold-particle, .letter-stage-wrapper, .letter-glow, .letter-sparkle, .letter-hint { animation: none; opacity: 1; transform: none; transition: none; }
 }
 
 @layer components {
