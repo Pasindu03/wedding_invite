@@ -56,6 +56,9 @@ export const translations = {
     photoAlt: "Placeholder for Kavindi and Gamindu's couple photograph",
     photoPlaceholder: "Couple photo placeholder",
     requiredName: "Please enter your name before continuing.",
+    attendingQuestion: "Will you be attending?",
+    attendingYes: "I will attend",
+    attendingNo: "Cannot attend",
     rsvpMessage: (name: string, message: string) =>
       `Wedding RSVP\n\nName: ${name}\n\nMessage:\n${message || "—"}`,
   },
@@ -116,6 +119,9 @@ export const translations = {
     photoAlt: "කවින්දි සහ ගාමින්දුගේ යුවළ ඡායාරූපය සඳහා තාවකාලික ස්ථානය",
     photoPlaceholder: "යුවළගේ ඡායාරූපය සඳහා ස්ථානය",
     requiredName: "කරුණාකර ඉදිරියට යාමට පෙර ඔබේ නම ඇතුළත් කරන්න.",
+    attendingQuestion: "ඔබ සහභාගී වනවාද?",
+    attendingYes: "මම සහභාගී වෙමි",
+    attendingNo: "සහභාගී විය නොහැක",
     rsvpMessage: (name: string, message: string) =>
       `විවාහ උත්සවයට පැමිණීම තහවුරු කිරීම\n\nනම: ${name}\n\nපණිවිඩය:\n${message || "—"}`,
   },
