@@ -12,7 +12,7 @@ export function EnvelopeIntro() {
     // After 10 seconds, transition to language selector
     const timer = setTimeout(() => {
       setShowLanguageSelector(true);
-    }, 10000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, []);
