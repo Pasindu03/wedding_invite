@@ -1,109 +1,149 @@
 "use client";
 
-import { Mail } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LanguageSelector } from "./language-selector";
 
-const sparkles = [
-  { left: "5%", top: "12%", delay: "0s" },
-  { left: "15%", top: "72%", delay: "0.8s" },
-  { left: "88%", top: "18%", delay: "1.2s" },
-  { left: "92%", top: "62%", delay: "0.4s" },
-  { left: "48%", top: "3%", delay: "1.6s" },
-  { left: "42%", top: "90%", delay: "2s" },
-] as const;
-
 export function EnvelopeIntro() {
-  const [opened, setOpened] = useState(false);
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const openInvitation = () => {
-    setOpened(true);
+  useEffect(() => {
+    // After 10 seconds, transition to language selector
+    const timer = setTimeout(() => {
+      setShowLanguageSelector(true);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleVideoError = () => {
+    setVideoFailed(true);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    // Enter or Space opens the invitation
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openInvitation();
-    }
+  const handleVideoEnd = () => {
+    setShowLanguageSelector(true);
   };
 
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-champagne">
-      {!opened && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 py-8">
-          <div className="letter-stage-wrapper">
-            <div className="letter-glow" aria-hidden="true" />
+      <>
+        <style>{`
+        @keyframes fadeOut {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
 
-            {sparkles.map((s, i) => (
-              <span
-                key={i}
-                className="letter-sparkle"
-                style={{
-                  left: s.left,
-                  top: s.top,
-                  animationDelay: s.delay,
-                }}
-                aria-hidden="true"
-              />
-            ))}
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
 
-            <div
-              className={`letter-stage ${
-                opened ? "letter-stage--open" : ""
-              }`}
-              role="button"
-              tabIndex={0}
-              aria-label="Open wedding invitation"
-              onClick={openInvitation}
-              onKeyDown={handleKeyDown}
-            >
-              {/* Opened letter behind */}
-              <img
-                src="/images/letter-opened.svg"
-                alt=""
-                className="letter-image letter-image--back"
-                aria-hidden="true"
-              />
+        .intro-container {
+          min-height: 100dvh;
+          width: 100%;
+          background: #000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+        }
 
-              {/* Left door */}
-              <div className="letter-door letter-door--left">
-                <img
-                  src="/images/letter-closed.svg"
-                  alt="Sealed golden wedding invitation"
-                  className="letter-image letter-image--door"
-                  style={{ objectPosition: "left center" }}
-                />
-              </div>
+        .video-wrapper {
+          width: 100%;
+          height: 100dvh;
+          position: relative;
+          background: #000;
+        }
 
-              {/* Right door */}
-              <div className="letter-door letter-door--right">
-                <img
-                  src="/images/letter-closed.svg"
-                  alt=""
-                  className="letter-image letter-image--door"
-                  style={{ objectPosition: "right center" }}
-                  aria-hidden="true"
-                />
+        .video-wrapper video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .fallback-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .intro-container.fade-out {
+          animation: fadeOut 0.8s ease-out forwards;
+        }
+
+        .language-selector-wrapper {
+          position: fixed;
+          inset: 0;
+          background: linear-gradient(135deg, #f4e8d8 0%, #ede1d1 50%, #e8dcc6 100%);
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .language-selector-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+          .video-wrapper video,
+          .fallback-image {
+            object-fit: contain;
+            background: #000;
+          }
+        }
+      `}</style>
+
+        {!showLanguageSelector && (
+            <div className="intro-container">
+              <div className="video-wrapper">
+                {!videoFailed ? (
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        muted
+                        playsInline
+                        onError={handleVideoError}
+                        onEnded={handleVideoEnd}
+                    >
+                      <source src="/videos/video.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                ) : (
+                    <img
+                        src="/images/fallback.jpeg"
+                        alt="Wedding Invitation"
+                        className="fallback-image"
+                    />
+                )}
               </div>
             </div>
-          </div>
+        )}
 
-          <div className="letter-hint mt-8 flex flex-col items-center gap-2 text-center">
-            <Mail className="size-4 text-rose" aria-hidden="true" />
-
-            <p className="text-sm font-medium text-ink/70">
-              Click or press Enter to open your invitation
-            </p>
-          </div>
-        </div>
-      )}
-
-      {opened && (
-        <div className="lang-selector-enter">
-          <LanguageSelector />
-        </div>
-      )}
-    </div>
+        {showLanguageSelector && (
+            <div className="language-selector-wrapper">
+              <div className="language-selector-container">
+                <LanguageSelector />
+              </div>
+            </div>
+        )}
+      </>
   );
 }
