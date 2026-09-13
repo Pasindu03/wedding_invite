@@ -32,7 +32,7 @@ export const translations = {
     ending: "Celebration Ends",
     venueEyebrow: "Join us",
     venueTitle: "Venue & location",
-    venueCopy: "We would be delighted to celebrate this special day with you.",
+    venueCopy: "Hotel Green Court - Grand Ballroom",
     venueImageAlt: "Hotel Green Court venue entrance",
     viewLocation: "Open in Google Maps",
     contactsEyebrow: "Get in touch",

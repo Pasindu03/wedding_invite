@@ -3,6 +3,7 @@ export const weddingDetails = {
   groom: "Gamindu",
   dateDay: "19",
   dateMonth: "November",
+  dateYear: "2026",
   brideParents: "Mr and Mrs. Gunasekara",
   groomParents: "Mr and Mrs. Jayarathne",
   ceremonyTime: "9:00 AM",
