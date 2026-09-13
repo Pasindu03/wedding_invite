@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { MessageCircle, Check, X, User, PenLine, Send, Heart } from "lucide-react";
+import { Check, X, User, PenLine, Send, Heart } from "lucide-react";
 import type { Locale } from "@/data/wedding";
 import { weddingDetails } from "@/data/wedding";
 import { translations } from "@/data/translations";
