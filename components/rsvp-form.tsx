@@ -17,19 +17,6 @@ export function RsvpForm({ locale }: { locale: Locale }) {
         const name = String(form.get("name") ?? "").trim();
         const message = String(form.get("message") ?? "").trim();
 
-        // Validation checks
-        if (!name) {
-            setError(t.requiredName);
-            return;
-        }
-
-        if (attending === null) {
-            setError("Please select if you are attending");
-            return;
-        }
-
-        setError("");
-
         // Build the message with attendance status
         const attendanceStatus = attending === "yes" ? "✅ Coming" : "❌ Not Coming";
         const fullMessage = `${t.rsvpMessage(name, message)}\n\n${attendanceStatus}`;
@@ -110,18 +97,10 @@ export function RsvpForm({ locale }: { locale: Locale }) {
                 />
             </div>
 
-            {/* Error Message */}
-            {error && (
-                <p role="alert" className="text-sm text-red-500 font-medium">
-                    ⚠️ {error}
-                </p>
-            )}
-
             {/* Submit Button */}
             <button
                 type="submit"
                 className="button-primary mt-2 justify-center hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={!attending || !String(document.getElementById("guest-name")?.getAttribute("value") ?? "").trim()}
             >
                 <MessageCircle className="size-5" aria-hidden="true" />
                 {t.rsvpButton}

@@ -24,7 +24,6 @@ export function InvitationPage({ locale }: { locale: Locale }) {
   const schedule = [
     { time: weddingDetails.ceremonyTime, title: t.ceremony },
     { time: weddingDetails.poruweTime, title: t.poruwe },
-    { time: weddingDetails.endingTime, title: t.ending },
   ];
   const parentDetails = [
     { label: t.brideParentsLabel, name: parentNames.bride },
@@ -106,14 +105,28 @@ export function InvitationPage({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <SectionHeading eyebrow={t.scheduleEyebrow} title={t.scheduleTitle} />
-            <ol className="mx-auto mt-11 max-w-xl divide-y divide-line border-y border-line">
+
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8 pt-4">
               {schedule.map((event) => (
-                <li key={event.time} className="grid grid-cols-[6.5rem_1fr] gap-5 py-6 sm:grid-cols-[8rem_1fr] sm:gap-8">
-                  <time className="font-display text-2xl text-rose sm:text-3xl">{event.time}</time>
-                  <p className="self-center text-base font-medium leading-snug">{event.title}</p>
-                </li>
+                  <div
+                      key={event.time}
+                      className="rounded-2xl border border-gray-700 bg-gradient-to-br from-rose/5 to-transparent p-8 hover:border-rose/50 transition-all duration-300"
+                  >
+                    {/* Time */}
+                    <time className="font-display text-4xl sm:text-5xl text-rose block mb-4">
+                      {event.time}
+                    </time>
+
+                    {/* Divider */}
+                    <div className="w-12 h-1 bg-gradient-to-r from-rose to-rose/30 rounded-full mb-6" />
+
+                    {/* Event Title */}
+                    <p className="text-lg sm:text-xl font-medium text-black leading-snug">
+                      {event.title}
+                    </p>
+                  </div>
               ))}
-            </ol>
+            </div>
           </Reveal>
         </div>
       </section>
