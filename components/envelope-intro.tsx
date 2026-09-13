@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { LanguageSelector } from "./language-selector";
+import { startMusic } from "@/lib/music";
 
 export function EnvelopeIntro() {
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
@@ -9,8 +10,9 @@ export function EnvelopeIntro() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // After 10 seconds, transition to language selector
+    // After 12 seconds, transition to language selector
     const timer = setTimeout(() => {
+      startMusic();
       setShowLanguageSelector(true);
     }, 12000);
 
@@ -19,9 +21,11 @@ export function EnvelopeIntro() {
 
   const handleVideoError = () => {
     setVideoFailed(true);
+    startMusic();
   };
 
   const handleVideoEnd = () => {
+    startMusic();
     setShowLanguageSelector(true);
   };
 
