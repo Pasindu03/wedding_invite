@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { MessageCircle, Check, X } from "lucide-react";
+import { MessageCircle, Check, X, User, PenLine, Send, Heart } from "lucide-react";
 import type { Locale } from "@/data/wedding";
 import { weddingDetails } from "@/data/wedding";
 import { translations } from "@/data/translations";
@@ -10,16 +10,35 @@ export function RsvpForm({ locale }: { locale: Locale }) {
     const t = translations[locale];
     const [error, setError] = useState("");
     const [attending, setAttending] = useState<"yes" | "no" | null>(null);
+    const [nameFocused, setNameFocused] = useState(false);
+    const [msgFocused, setMsgFocused] = useState(false);
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
         const form = new FormData(event.currentTarget);
         const name = String(form.get("name") ?? "").trim();
         const message = String(form.get("message") ?? "").trim();
 
-        // Build the message with attendance status
-        const attendanceStatus = attending === "yes" ? "✅ Coming" : "❌ Not Coming";
-        const fullMessage = `${t.rsvpMessage(name, message)}\n\n${attendanceStatus}`;
+        if (!name) {
+            setError(t.requiredName);
+            return;
+        }
+
+        const attendanceStatus =
+            attending === "yes"
+                ? "Will Attend"
+                : "Unable to Attend";
+
+        const fullMessage = `*WEDDING RSVP*
+
+        *Name:* ${name}
+        *Attendance:* ${attendanceStatus}
+        
+        *Message:*
+        ${message || "No additional message."}
+        
+        Thank you!`;
 
         window.open(
             `https://wa.me/${weddingDetails.whatsappPhone}?text=${encodeURIComponent(fullMessage)}`,
@@ -31,79 +50,101 @@ export function RsvpForm({ locale }: { locale: Locale }) {
     return (
         <form noValidate onSubmit={handleSubmit} className="mx-auto mt-8 grid max-w-xl gap-6 text-left">
 
-            {/* Guest Name */}
-            <div>
+            <div className="relative">
                 <label htmlFor="guest-name" className="form-label">{t.guestName}</label>
-                <input
-                    id="guest-name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    placeholder={t.guestNamePlaceholder}
-                    className="form-control"
-                    onChange={() => setError("")}
-                />
+                <div className="relative">
+                    <User
+                        className={`pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 transition-colors ${nameFocused ? "text-rose" : "text-ink/35"}`}
+                        aria-hidden="true"
+                    />
+                    <input
+                        id="guest-name"
+                        name="name"
+                        type="text"
+                        autoComplete="name"
+                        placeholder={t.guestNamePlaceholder}
+                        className="form-control pl-12"
+                        onChange={() => setError("")}
+                        onFocus={() => setNameFocused(true)}
+                        onBlur={() => setNameFocused(false)}
+                    />
+                </div>
             </div>
 
-            {/* Attendance Selection */}
             <div>
-                <label className="form-label mb-3 block">Will you be attending?</label>
+                <label className="form-label mb-3 block">{t.attendingQuestion}</label>
                 <div className="grid grid-cols-2 gap-3">
-                    {/* Yes Button */}
                     <button
                         type="button"
-                        onClick={() => {
-                            setAttending("yes");
-                            setError("");
-                        }}
-                        className={`relative flex items-center justify-center gap-2 py-4 px-4 rounded-xl border-2 font-medium transition-all duration-200 ${
+                        onClick={() => { setAttending("yes"); setError(""); }}
+                        className={`group relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 px-3 py-5 font-medium transition-all duration-300 ${
                             attending === "yes"
-                                ? "border-green-500 bg-green-500/10 text-green-600"
-                                : "border-gray-600 bg-transparent text-gray-300 hover:border-green-500/50"
+                                ? "border-rose bg-rose/10 text-rose shadow-[0_8px_24px_rgba(155,98,88,0.18)]"
+                                : "border-line bg-white/60 text-ink/60 hover:border-rose/40 hover:text-rose"
                         }`}
+                        aria-pressed={attending === "yes"}
                     >
-                        <Check className="size-5" aria-hidden="true" />
-                        <span>I Will Attend</span>
+            <span className={`flex size-10 items-center justify-center rounded-full transition-all duration-300 ${
+                attending === "yes" ? "bg-rose text-white scale-110" : "bg-rose/10 text-rose group-hover:scale-105"
+            }`}>
+              <Check className="size-5" aria-hidden="true" />
+            </span>
+                        <span className="text-sm">{t.attendingYes}</span>
                     </button>
 
-                    {/* No Button */}
                     <button
                         type="button"
-                        onClick={() => {
-                            setAttending("no");
-                            setError("");
-                        }}
-                        className={`relative flex items-center justify-center gap-2 py-4 px-4 rounded-xl border-2 font-medium transition-all duration-200 ${
+                        onClick={() => { setAttending("no"); setError(""); }}
+                        className={`group relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 px-3 py-5 font-medium transition-all duration-300 ${
                             attending === "no"
-                                ? "border-red-500 bg-red-500/10 text-red-600"
-                                : "border-gray-600 bg-transparent text-gray-300 hover:border-red-500/50"
+                                ? "border-ink/40 bg-ink/5 text-ink shadow-[0_8px_24px_rgba(53,45,41,0.12)]"
+                                : "border-line bg-white/60 text-ink/60 hover:border-ink/30 hover:text-ink"
                         }`}
+                        aria-pressed={attending === "no"}
                     >
-                        <X className="size-5" aria-hidden="true" />
-                        <span>Cannot Attend</span>
+            <span className={`flex size-10 items-center justify-center rounded-full transition-all duration-300 ${
+                attending === "no" ? "bg-ink/80 text-white scale-110" : "bg-ink/10 text-ink/60 group-hover:scale-105"
+            }`}>
+              <X className="size-5" aria-hidden="true" />
+            </span>
+                        <span className="text-sm">{t.attendingNo}</span>
                     </button>
                 </div>
             </div>
 
-            {/* Optional Message */}
-            <div>
+            <div className="relative">
                 <label htmlFor="guest-message" className="form-label">{t.optionalMessage}</label>
-                <textarea
-                    id="guest-message"
-                    name="message"
-                    rows={4}
-                    placeholder={t.messagePlaceholder}
-                    className="form-control resize-y"
-                />
+                <div className="relative">
+                    <PenLine
+                        className={`pointer-events-none absolute left-4 top-4 size-5 transition-colors ${msgFocused ? "text-rose" : "text-ink/35"}`}
+                        aria-hidden="true"
+                    />
+                    <textarea
+                        id="guest-message"
+                        name="message"
+                        rows={4}
+                        placeholder={t.messagePlaceholder}
+                        className="form-control resize-y pl-12"
+                        onFocus={() => setMsgFocused(true)}
+                        onBlur={() => setMsgFocused(false)}
+                    />
+                </div>
             </div>
 
-            {/* Submit Button */}
+            {error && (
+                <p role="alert" className="-mt-2 flex items-center gap-2 text-sm text-[#a53645]">
+                    <X className="size-4 shrink-0" aria-hidden="true" />
+                    {error}
+                </p>
+            )}
+
             <button
                 type="submit"
-                className="button-primary mt-2 justify-center hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="button-primary group mt-2 justify-center hover:shadow-[0_10px_30px_rgba(155,98,88,0.25)]"
             >
-                <MessageCircle className="size-5" aria-hidden="true" />
+                <Send className="size-5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 {t.rsvpButton}
+                <Heart className="size-4 fill-white transition-transform group-hover:scale-110" aria-hidden="true" />
             </button>
         </form>
     );
