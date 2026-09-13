@@ -66,19 +66,23 @@ export function EnvelopeIntro() {
           height: 100dvh;
           position: relative;
           background: #000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
         }
 
         .video-wrapper video {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+          width: 105%;
+          height: 105%;
+          object-fit: contain;
           display: block;
         }
 
         .fallback-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+          width: 105%;
+          height: 105%;
+          object-fit: contain;
           display: block;
         }
 
@@ -109,6 +113,8 @@ export function EnvelopeIntro() {
         @media (max-width: 768px) {
           .video-wrapper video,
           .fallback-image {
+            width: 105%;
+            height: 105%;
             object-fit: contain;
             background: #000;
           }
