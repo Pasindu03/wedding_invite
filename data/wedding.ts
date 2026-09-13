@@ -13,7 +13,7 @@ export const weddingDetails = {
   whatsappPhone: "94713643929",
   venueUrl: "https://maps.app.goo.gl/pwq6y5F8GLBSRUoU9",
   coupleImage: "/images/couple2.png",
-  venueImage: "/images/venue-reception-hall.png",
+  venueImage: "/images/picture1.jpg",
 } as const;
 
 export type Locale = "en" | "si";
