@@ -53,25 +53,16 @@ export function Countdown({ labels }: { labels: CountdownLabels }) {
   ];
 
   return (
-    <section aria-live="polite" className="text-center">
-      <p className="text-[0.6rem] font-medium uppercase tracking-[0.2em] text-rose/60">{labels.eyebrow}</p>
-      <h2 className="mt-1.5 font-display text-lg text-ink/50">{labels.title}</h2>
-      <div className="mt-5 flex items-center justify-center gap-3 sm:gap-5">
-        {units.map((unit, i) => (
-          <div key={unit.label} className="flex items-center gap-3 sm:gap-5">
-            <div className="text-center">
-              <span className="block font-display text-xl tabular-nums text-ink/40 sm:text-2xl">
-                {String(unit.value ?? 0).padStart(2, "0")}
-              </span>
-              <span className="mt-0.5 block text-[0.5rem] font-medium uppercase tracking-[0.12em] text-ink/30 sm:text-[0.55rem]">
-                {unit.label}
-              </span>
-            </div>
-            {i < units.length - 1 && (
-              <span className="font-display text-lg text-rose/20" aria-hidden="true">·</span>
-            )}
+    <section className="countdown-card" aria-live="polite">
+      <p className="eyebrow">{labels.eyebrow}</p>
+      <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">{labels.title}</h2>
+      <div className="mt-7 grid grid-cols-4 divide-x divide-line border-y border-line">
+        {units.map((unit) => (
+          <div key={unit.label} className="px-1 py-4 text-center sm:px-3">
+            <span className="block font-display text-2xl tabular-nums text-rose sm:text-4xl">{String(unit.value ?? 0).padStart(2, "0")}</span>
+            <span className="mt-1 block text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-ink/60 sm:text-[0.65rem]">{unit.label}</span>
           </div>
-        ))}
+      )}
       </div>
     </section>
   );
