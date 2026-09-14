@@ -10,6 +10,7 @@ import { RsvpForm } from "./rsvp-form";
 import { SectionHeading } from "./section-heading";
 import { BottomNavigation } from "./bottom-navigation";
 import { Countdown } from "./countdown";
+import { AddToCalendar } from "./add-to-calendar";
 import { Reveal } from "./reveal";
 import { GoldenParticles } from "./golden-particles";
 
@@ -81,6 +82,16 @@ export function InvitationPage({ locale }: { locale: Locale }) {
             hours: t.countdownHours,
             minutes: t.countdownMinutes,
             seconds: t.countdownSeconds,
+          }} />
+        </Reveal>
+        <Reveal className="mt-6">
+          <AddToCalendar labels={{
+            addToCalendar: t.addToCalendar,
+            googleCalendar: t.googleCalendar,
+            appleCalendar: t.appleCalendar,
+            outlookCalendar: t.outlookCalendar,
+            calendarTitle: t.calendarTitle,
+            calendarDescription: t.calendarDescription,
           }} />
         </Reveal>
       </section>
