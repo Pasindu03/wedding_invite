@@ -27,7 +27,7 @@ export const translations = {
     groomParentsLabel: "Parents of the Groom",
     scheduleEyebrow: "The day",
     scheduleTitle: "Wedding schedule",
-    ceremony: "Wedding Ceremony",
+    ceremony: "Wedding Registration",
     poruwe: "Poruwe Ceremony",
     ending: "Celebration Ends",
     venueEyebrow: "Join us",
