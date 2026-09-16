@@ -3,6 +3,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://wedding-invite-teal-one.vercel.app"),
+
   title: "Kavindi & Gamindu | Wedding Invitation",
 
   description:
