@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image";
-import Link from "next/link";
 import { CalendarDays, ExternalLink, Heart, MapPin, Phone } from "lucide-react";
 import type { Locale } from "@/data/wedding";
 import { localizedPhone, weddingDetails } from "@/data/wedding";
@@ -9,8 +8,6 @@ import { translations } from "@/data/translations";
 import { RsvpForm } from "./rsvp-form";
 import { SectionHeading } from "./section-heading";
 import { BottomNavigation } from "./bottom-navigation";
-import { Countdown } from "./countdown";
-import { AddToCalendar } from "./add-to-calendar";
 import { Reveal } from "./reveal";
 import { GoldenParticles } from "./golden-particles";
 
@@ -67,32 +64,6 @@ export function InvitationPage({ locale }: { locale: Locale }) {
             <Image src={weddingDetails.coupleImage} alt={t.photoAlt} width={1054} height={1492} priority className="h-auto max-h-[72svh] w-auto max-w-full rounded-[1.2rem] object-contain sm:h-full sm:max-h-none sm:w-full sm:rounded-[1.2rem] sm:object-cover sm:object-[center_28%]" />
             <span className="sr-only">{t.photoPlaceholder}</span>
           </div>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto max-w-2xl px-6 py-12 text-center sm:py-16">
-        <Reveal>
-          <p className="font-display text-2xl leading-relaxed text-ink/85 sm:text-3xl">“{t.invitationMessage}”</p>
-        </Reveal>
-        <Reveal className="mt-10">
-          <Countdown labels={{
-            eyebrow: t.countdownEyebrow,
-            title: t.countdownTitle,
-            days: t.countdownDays,
-            hours: t.countdownHours,
-            minutes: t.countdownMinutes,
-            seconds: t.countdownSeconds,
-          }} />
-        </Reveal>
-        <Reveal className="mt-6">
-          <AddToCalendar labels={{
-            addToCalendar: t.addToCalendar,
-            googleCalendar: t.googleCalendar,
-            appleCalendar: t.appleCalendar,
-            outlookCalendar: t.outlookCalendar,
-            calendarTitle: t.calendarTitle,
-            calendarDescription: t.calendarDescription,
-          }} />
         </Reveal>
       </section>
 

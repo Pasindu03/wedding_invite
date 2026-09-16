@@ -45,114 +45,7 @@ export function EnvelopeIntro() {
   };
 
   return (
-    <>
-      <style>{`
-        @keyframes fadeOut {
-          0% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-        @keyframes fadeIn {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-        @keyframes pulse-soft {
-          0%, 100% { transform: scale(1); opacity: 0.85; }
-          50% { transform: scale(1.05); opacity: 1; }
-        }
-        @keyframes float-up {
-          0% { transform: translateY(0); opacity: 0; }
-          10% { opacity: 0.6; }
-          90% { opacity: 0.6; }
-          100% { transform: translateY(-100px); opacity: 0; }
-        }
-
-        .intro-container {
-          min-height: 100dvh;
-          width: 100%;
-          background: #000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .video-wrapper {
-          width: 100%;
-          height: 100dvh;
-          position: relative;
-          background: #000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-        }
-
-        .video-wrapper video {
-          width: 105%;
-          height: 105%;
-          object-fit: contain;
-          display: block;
-        }
-
-        .fallback-image {
-          width: 105%;
-          height: 105%;
-          object-fit: contain;
-          display: block;
-        }
-
-        .tap-overlay {
-          position: fixed;
-          inset: 0;
-          background: linear-gradient(135deg, #f4e8d8 0%, #ede1d1 50%, #e8dcc6 100%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 200;
-          cursor: pointer;
-        }
-
-        .tap-icon {
-          animation: pulse-soft 2s ease-in-out infinite;
-        }
-
-        .language-selector-wrapper {
-          position: fixed;
-          inset: 0;
-          background: linear-gradient(135deg, #f4e8d8 0%, #ede1d1 50%, #e8dcc6 100%);
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .language-selector-container {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
-
-        .video-fade {
-          animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        @media (max-width: 768px) {
-          .video-wrapper video,
-          .fallback-image {
-            width: 105%;
-            height: 105%;
-            object-fit: contain;
-            background: #000;
-          }
-        }
-      `}</style>
-
+    <div>
       {showTapToOpen && (
         <div className="tap-overlay" onClick={handleOpen}>
           <div className="tap-icon flex flex-col items-center gap-6">
@@ -208,6 +101,6 @@ export function EnvelopeIntro() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
