@@ -25,6 +25,8 @@ export const translations = {
     parentsTitle: "Our families",
     brideParentsLabel: "Parents of the Bride",
     groomParentsLabel: "Parents of the Groom",
+    brideParents:"Mr and Mrs Gunasekara",
+    groomParents:"Mr and Mrs Jayarathne",
     scheduleEyebrow: "The day",
     scheduleTitle: "Wedding schedule",
     ceremony: "Wedding Reception",
