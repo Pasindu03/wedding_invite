@@ -1,5 +1,5 @@
-import { WeddingInvitation } from "@/components/envelope-intro";
+import {EnvelopeIntro} from "@/components/envelope-intro";
 
 export default function HomePage() {
-  return <WeddingInvitation />;
+  return <EnvelopeIntro />;
 }
