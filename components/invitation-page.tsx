@@ -10,22 +10,42 @@ import { RsvpForm } from "./rsvp-form";
 import { SectionHeading } from "./section-heading";
 import { BottomNavigation } from "./bottom-navigation";
 import { Countdown } from "./countdown";
-import { AddToCalendar } from "./add-to-calendar";
 import { Reveal } from "./reveal";
 import { GoldenParticles } from "./golden-particles";
+
+function TimelineContent({index, time, title, align,}: { index: number; time: string; title: string; align: "left" | "right"; }) {
+  return (
+      <div className={align === "right" ? "text-right" : "text-left"}>
+        <div
+            className={`mb-3 flex items-center gap-3 ${
+                align === "right" ? "justify-end" : "justify-start"
+            }`}
+        >
+        <span className="font-mono text-[9px] font-medium uppercase tracking-[0.25em] text-rose/55">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+          <span className="h-px w-8 bg-rose/25" />
+        </div>
+
+        <time className="block font-display text-4xl leading-none tracking-tight text-rose sm:text-5xl">
+          {time}
+        </time>
+
+        <h3 className="mt-3 max-w-xs font-display text-2xl leading-tight text-[#493b32] sm:text-3xl">
+          {title}
+        </h3>
+      </div>
+  );
+}
 
 export function InvitationPage({ locale }: { locale: Locale }) {
   const t = translations[locale];
   const brideName = t.brideName;
   const groomName = t.groomName;
-  const alternateLocale = locale === "en" ? "si" : "en";
   const parentNames = locale === "si"
       ? { bride: translations.si.brideParents, groom: translations.si.groomParents }
       : { bride: weddingDetails.brideParents, groom: weddingDetails.groomParents };
-  const schedule = [
-    { time: weddingDetails.ceremonyTime, title: t.ceremony },
-    { time: weddingDetails.poruweTime, title: t.poruwe },
-  ];
   const parentDetails = [
     { label: t.brideParentsLabel, name: parentNames.bride },
     { label: t.groomParentsLabel, name: parentNames.groom },
@@ -33,6 +53,28 @@ export function InvitationPage({ locale }: { locale: Locale }) {
   const contacts = [
     { name: groomName, phone: weddingDetails.gaminduPhone },
     { name: brideName, phone: weddingDetails.kavindiPhone },
+  ];
+  const schedule = [
+    {
+      time: "9:00 AM",
+      title: "The Celebration Begins",
+    },
+    {
+      time: "10:00 AM",
+      title: "The Poruwa Blessing",
+    },
+    {
+      time: "12:00 PM",
+      title: "A Feast Together",
+    },
+    {
+      time: "2:00 PM",
+      title: "Let the Celebration Begin",
+    },
+    {
+      time: "4:00 PM",
+      title: "Until We Meet Again",
+    },
   ];
 
   return (
@@ -68,9 +110,23 @@ export function InvitationPage({ locale }: { locale: Locale }) {
               <span className="sr-only">{t.photoPlaceholder}</span>
             </div>
           </Reveal>
+
+          <div className="mx-auto pt-8 max-w-3xl">
+            <Reveal>
+              <SectionHeading eyebrow={t.parentsEyebrow} title={t.parentsTitle} />
+              <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
+                {parentDetails.map((parent) => (
+                    <div key={parent.label} className="bg-[#fffdfa] px-6 py-7 text-center">
+                      <p className="text-xs font-medium uppercase tracking-[0.16em] text-rose">{parent.label}</p>
+                      <p className="mt-3 font-display text-2xl">{parent.name}</p>
+                    </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
         </section>
 
-        <section className="mx-auto max-w-2xl px-6 py-12 text-center sm:py-16">
+        <section className="mx-auto max-w-2xl px-6 py-12 text-center sm:py-12 ">
           <Reveal>
             <p className="font-display text-2xl leading-relaxed text-ink/85 sm:text-3xl">“{t.invitationMessage}”</p>
           </Reveal>
@@ -86,47 +142,132 @@ export function InvitationPage({ locale }: { locale: Locale }) {
           </Reveal>
         </section>
 
-        <section className="border-y border-line bg-champagne/75 px-5 py-12 sm:px-8 sm:py-16">
-          <div className="mx-auto max-w-3xl">
+        <section
+            id="schedule"
+            className="relative scroll-mt-4 overflow-hidden bg-[#f7efe3] px-5 py-20 sm:px-8 sm:py-28"
+        >
+          {/* Ambient background */}
+          <div
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose/10 blur-[140px]"
+              aria-hidden="true"
+          />
+
+          <div
+              className="pointer-events-none absolute inset-0 opacity-[0.035]"
+              style={{
+                backgroundImage:
+                    "radial-gradient(#493b32 0.7px, transparent 0.7px)",
+                backgroundSize: "18px 18px",
+              }}
+              aria-hidden="true"
+          />
+
+          <div className="relative mx-auto max-w-5xl">
             <Reveal>
-              <SectionHeading eyebrow={t.parentsEyebrow} title={t.parentsTitle} />
-              <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
-                {parentDetails.map((parent) => (
-                    <div key={parent.label} className="bg-[#fffdfa] px-6 py-7 text-center">
-                      <p className="text-xs font-medium uppercase tracking-[0.16em] text-rose">{parent.label}</p>
-                      <p className="mt-3 font-display text-2xl">{parent.name}</p>
-                    </div>
-                ))}
+              {/* Heading */}
+              <div className="mx-auto max-w-xl text-center">
+                <div className="mb-6 flex items-center justify-center gap-4">
+                  <span className="h-px w-12 bg-rose/30" />
+
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-rose">
+            The Day
+          </span>
+
+                  <span className="h-px w-12 bg-rose/30" />
+                </div>
+
+                <h2 className="font-display text-5xl leading-none tracking-tight text-[#493b32] sm:text-6xl md:text-7xl">
+                  Our Day Together
+                </h2>
+
+                <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-[#493b32]/55 sm:text-base">
+                  Five beautiful moments as we celebrate the beginning of our
+                  forever.
+                </p>
               </div>
-            </Reveal>
-          </div>
-        </section>
 
-        <section id="schedule" className="scroll-mt-4 px-5 py-12 sm:px-8 sm:py-16">
-          <div className="mx-auto max-w-3xl">
-            <Reveal>
-              <SectionHeading eyebrow={t.scheduleEyebrow} title={t.scheduleTitle} />
+              {/* Timeline */}
+              <div className="relative mx-auto mt-20 max-w-4xl sm:mt-28">
+                {/* Main vertical line */}
+                <div
+                    className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-transparent via-rose/30 to-transparent sm:left-1/2 sm:-translate-x-1/2"
+                    aria-hidden="true"
+                />
 
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 pt-4">
-                {schedule.map((event) => (
-                    <div
-                        key={event.time}
-                        className="rounded-2xl border border-gray-700 bg-gradient-to-br from-rose/5 to-transparent p-8 hover:border-rose/50 transition-all duration-300"
-                    >
-                      {/* Time */}
-                      <time className="font-display text-4xl sm:text-5xl text-rose block mb-4">
-                        {event.time}
-                      </time>
+                <div className="space-y-16 sm:space-y-24">
+                  {schedule.map((event, index) => {
+                    const isEven = index % 2 === 0;
 
-                      {/* Divider */}
-                      <div className="w-12 h-1 bg-gradient-to-r from-rose to-rose/30 rounded-full mb-6" />
+                    return (
+                        <div
+                            key={`${event.time}-${event.title}`}
+                            className="relative grid grid-cols-[3rem_1fr] sm:grid-cols-[1fr_4rem_1fr]"
+                        >
+                          {/* Desktop left side */}
+                          <div
+                              className={`hidden sm:block ${
+                                  isEven
+                                      ? "pr-14 text-right"
+                                      : "col-start-3 pl-14 text-left"
+                              }`}
+                          >
+                            {isEven ? (
+                                <TimelineContent
+                                    index={index}
+                                    time={event.time}
+                                    title={event.title}
+                                    align="right"
+                                />
+                            ) : null}
+                          </div>
 
-                      {/* Event Title */}
-                      <p className="text-lg sm:text-xl font-medium text-black leading-snug">
-                        {event.title}
-                      </p>
-                    </div>
-                ))}
+                          {/* Timeline marker */}
+                          <div className="relative z-10 col-start-1 flex justify-center sm:col-start-2">
+                            <div className="relative flex size-12 items-center justify-center rounded-full border border-rose/25 bg-[#f7efe3] shadow-[0_0_0_8px_rgba(247,239,227,0.8)]">
+                              <div className="absolute size-3 rounded-full bg-rose shadow-[0_0_20px_rgba(155,98,88,0.5)]" />
+                            </div>
+                          </div>
+
+                          {/* Desktop right side */}
+                          <div
+                              className={`hidden sm:block ${
+                                  isEven ? "" : "col-start-3 pl-14"
+                              }`}
+                          >
+                            {!isEven ? (
+                                <TimelineContent
+                                    index={index}
+                                    time={event.time}
+                                    title={event.title}
+                                    align="left"
+                                />
+                            ) : null}
+                          </div>
+
+                          {/* Mobile */}
+                          <div className="col-start-2 pl-7 sm:hidden">
+                            <TimelineContent
+                                index={index}
+                                time={event.time}
+                                title={event.title}
+                                align="left"
+                            />
+                          </div>
+                        </div>
+                    );
+                  })}
+                </div>
+
+                {/* Ending heart */}
+                <div className="relative mt-20 flex justify-center sm:mt-28">
+                  <div className="flex size-12 items-center justify-center rounded-full border border-rose/20 bg-[#f7efe3] shadow-[0_0_0_8px_rgba(247,239,227,0.8)]">
+                    <Heart
+                        className="size-4 text-rose"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    />
+                  </div>
+                </div>
               </div>
             </Reveal>
           </div>
