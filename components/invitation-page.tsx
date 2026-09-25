@@ -13,26 +13,24 @@ import { Countdown } from "./countdown";
 import { Reveal } from "./reveal";
 import { GoldenParticles } from "./golden-particles";
 
-function TimelineContent({index, time, title, align,}: { index: number; time: string; title: string; align: "left" | "right"; }) {
+function TimelineContent({
+                           index,
+                           time,
+                           title,
+                           align,
+                         }: {
+  index: number;
+  time: string;
+  title: string;
+  align: "left" | "right";
+}) {
   return (
       <div className={align === "right" ? "text-right" : "text-left"}>
-        <div
-            className={`mb-3 flex items-center gap-3 ${
-                align === "right" ? "justify-end" : "justify-start"
-            }`}
-        >
-        <span className="font-mono text-[9px] font-medium uppercase tracking-[0.25em] text-rose/55">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-          <span className="h-px w-8 bg-rose/25" />
-        </div>
-
-        <time className="block font-display text-4xl leading-none tracking-tight text-rose sm:text-5xl">
+        <time className="block font-display text-[1.65rem] leading-none tracking-tight text-rose sm:text-5xl">
           {time}
         </time>
 
-        <h3 className="mt-3 max-w-xs font-display text-2xl leading-tight text-[#493b32] sm:text-3xl">
+        <h3 className="mt-2 max-w-[220px] font-display text-[1.15rem] leading-tight text-[#493b32] sm:mt-3 sm:max-w-xs sm:text-3xl">
           {title}
         </h3>
       </div>
@@ -61,7 +59,7 @@ export function InvitationPage({ locale }: { locale: Locale }) {
     },
     {
       time: "10:00 AM",
-      title: "The Poruwa Blessing",
+      title: "The Poruwa Ceremony",
     },
     {
       time: "12:00 PM",
@@ -69,11 +67,11 @@ export function InvitationPage({ locale }: { locale: Locale }) {
     },
     {
       time: "2:00 PM",
-      title: "Let the Celebration Begin",
+      title: "Let's Dance",
     },
     {
       time: "4:00 PM",
-      title: "Until We Meet Again",
+      title: "Good bye to the Couple",
     },
   ];
 
@@ -142,137 +140,6 @@ export function InvitationPage({ locale }: { locale: Locale }) {
           </Reveal>
         </section>
 
-        <section
-            id="schedule"
-            className="relative scroll-mt-4 overflow-hidden bg-[#f7efe3] px-5 py-20 sm:px-8 sm:py-28"
-        >
-          {/* Ambient background */}
-          <div
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose/10 blur-[140px]"
-              aria-hidden="true"
-          />
-
-          <div
-              className="pointer-events-none absolute inset-0 opacity-[0.035]"
-              style={{
-                backgroundImage:
-                    "radial-gradient(#493b32 0.7px, transparent 0.7px)",
-                backgroundSize: "18px 18px",
-              }}
-              aria-hidden="true"
-          />
-
-          <div className="relative mx-auto max-w-5xl">
-            <Reveal>
-              {/* Heading */}
-              <div className="mx-auto max-w-xl text-center">
-                <div className="mb-6 flex items-center justify-center gap-4">
-                  <span className="h-px w-12 bg-rose/30" />
-
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-rose">
-            The Day
-          </span>
-
-                  <span className="h-px w-12 bg-rose/30" />
-                </div>
-
-                <h2 className="font-display text-5xl leading-none tracking-tight text-[#493b32] sm:text-6xl md:text-7xl">
-                  Our Day Together
-                </h2>
-
-                <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-[#493b32]/55 sm:text-base">
-                  Five beautiful moments as we celebrate the beginning of our
-                  forever.
-                </p>
-              </div>
-
-              {/* Timeline */}
-              <div className="relative mx-auto mt-20 max-w-4xl sm:mt-28">
-                {/* Main vertical line */}
-                <div
-                    className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-transparent via-rose/30 to-transparent sm:left-1/2 sm:-translate-x-1/2"
-                    aria-hidden="true"
-                />
-
-                <div className="space-y-16 sm:space-y-24">
-                  {schedule.map((event, index) => {
-                    const isEven = index % 2 === 0;
-
-                    return (
-                        <div
-                            key={`${event.time}-${event.title}`}
-                            className="relative grid grid-cols-[3rem_1fr] sm:grid-cols-[1fr_4rem_1fr]"
-                        >
-                          {/* Desktop left side */}
-                          <div
-                              className={`hidden sm:block ${
-                                  isEven
-                                      ? "pr-14 text-right"
-                                      : "col-start-3 pl-14 text-left"
-                              }`}
-                          >
-                            {isEven ? (
-                                <TimelineContent
-                                    index={index}
-                                    time={event.time}
-                                    title={event.title}
-                                    align="right"
-                                />
-                            ) : null}
-                          </div>
-
-                          {/* Timeline marker */}
-                          <div className="relative z-10 col-start-1 flex justify-center sm:col-start-2">
-                            <div className="relative flex size-12 items-center justify-center rounded-full border border-rose/25 bg-[#f7efe3] shadow-[0_0_0_8px_rgba(247,239,227,0.8)]">
-                              <div className="absolute size-3 rounded-full bg-rose shadow-[0_0_20px_rgba(155,98,88,0.5)]" />
-                            </div>
-                          </div>
-
-                          {/* Desktop right side */}
-                          <div
-                              className={`hidden sm:block ${
-                                  isEven ? "" : "col-start-3 pl-14"
-                              }`}
-                          >
-                            {!isEven ? (
-                                <TimelineContent
-                                    index={index}
-                                    time={event.time}
-                                    title={event.title}
-                                    align="left"
-                                />
-                            ) : null}
-                          </div>
-
-                          {/* Mobile */}
-                          <div className="col-start-2 pl-7 sm:hidden">
-                            <TimelineContent
-                                index={index}
-                                time={event.time}
-                                title={event.title}
-                                align="left"
-                            />
-                          </div>
-                        </div>
-                    );
-                  })}
-                </div>
-
-                {/* Ending heart */}
-                <div className="relative mt-20 flex justify-center sm:mt-28">
-                  <div className="flex size-12 items-center justify-center rounded-full border border-rose/20 bg-[#f7efe3] shadow-[0_0_0_8px_rgba(247,239,227,0.8)]">
-                    <Heart
-                        className="size-4 text-rose"
-                        fill="currentColor"
-                        aria-hidden="true"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         <section id="venue" className="scroll-mt-4 bg-[#493b32] px-5 py-12 text-[#fffaf4] sm:px-8 sm:py-16">
           <Reveal className="mx-auto max-w-2xl text-center">
             <SectionHeading eyebrow={t.venueEyebrow} title={t.venueTitle} inverse />
@@ -288,7 +155,131 @@ export function InvitationPage({ locale }: { locale: Locale }) {
           </Reveal>
         </section>
 
+        <section
+            id="schedule"
+            className="relative scroll-mt-4 overflow-hidden bg-[#f7efe3] px-4 py-16 sm:px-8 sm:py-20"
+        >
+          {/* Ambient glow */}
+          <div
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose/10 blur-[120px] sm:h-[700px] sm:w-[700px] sm:blur-[140px]"
+              aria-hidden="true"
+          />
 
+          {/* Subtle texture */}
+          <div
+              className="pointer-events-none absolute inset-0 opacity-[0.035]"
+              style={{
+                backgroundImage:
+                    "radial-gradient(#493b32 0.7px, transparent 0.7px)",
+                backgroundSize: "18px 18px",
+              }}
+              aria-hidden="true"
+          />
+
+          <div className="relative mx-auto max-w-5xl">
+            <Reveal>
+              {/* Heading */}
+              <div className="mx-auto max-w-xl text-center">
+                <div className="mb-5 flex items-center justify-center gap-3 sm:mb-6 sm:gap-4">
+                  <span className="h-px w-8 bg-rose/30 sm:w-12" />
+
+                  <span className="text-[8px] font-semibold uppercase tracking-[0.3em] text-rose sm:text-[10px] sm:tracking-[0.35em]">
+            The Day
+          </span>
+
+                  <span className="h-px w-8 bg-rose/30 sm:w-12" />
+                </div>
+
+                <h2 className="font-display text-[2.6rem] leading-none tracking-tight text-[#493b32] sm:text-6xl md:text-7xl">
+                  Our Day Together
+                </h2>
+
+                <p className="mx-auto mt-4 max-w-[280px] text-xs leading-6 text-[#493b32]/55 sm:mt-5 sm:max-w-md sm:text-base sm:leading-7">
+                  Five beautiful moments as we celebrate the beginning of our forever.
+                </p>
+              </div>
+
+              {/* Timeline */}
+              <div className="relative mx-auto mt-16 max-w-4xl sm:mt-28">
+
+                {/* Vertical line */}
+                <div
+                    className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-rose/30 to-transparent"
+                    aria-hidden="true"
+                />
+
+                <div className="space-y-12 sm:space-y-24">
+                  {schedule.map((event, index) => {
+                    const isEven = index % 2 === 0;
+
+                    return (
+                        <div
+                            key={`${event.time}-${event.title}`}
+                            className="relative grid grid-cols-[1fr_3rem_1fr] items-center sm:grid-cols-[1fr_4rem_1fr]"
+                        >
+                          {/* LEFT */}
+                          <div
+                              className={`${
+                                  isEven
+                                      ? "pr-3 text-right sm:pr-14"
+                                      : "col-start-3 pl-3 text-left sm:pl-14"
+                              }`}
+                          >
+                            {isEven && (
+                                <TimelineContent
+                                    index={index}
+                                    time={event.time}
+                                    title={event.title}
+                                    align="right"
+                                />
+                            )}
+                          </div>
+
+                          {/* TIMELINE MARKER */}
+                          <div className="relative z-10 col-start-2 flex justify-center">
+                            <div
+                                className="
+                      flex size-9 items-center justify-center
+                      rounded-full border border-rose/25
+                      bg-[#f7efe3]
+                      shadow-[0_0_0_5px_rgba(247,239,227,0.85)]
+                      sm:size-12
+                      sm:shadow-[0_0_0_8px_rgba(247,239,227,0.8)]
+                    "
+                            >
+                              <div className="size-2 rounded-full bg-rose shadow-[0_0_14px_rgba(155,98,88,0.5)] sm:size-3" />
+
+                              <span className="absolute -top-4 font-mono text-[6px] font-medium tracking-[0.15em] text-rose/60 sm:-top-5 sm:text-[8px] sm:tracking-[0.2em]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                            </div>
+                          </div>
+
+                          {/* RIGHT */}
+                          <div
+                              className={`${
+                                  isEven
+                                      ? ""
+                                      : "col-start-3 pl-3 text-left sm:pl-14"
+                              }`}
+                          >
+                            {!isEven && (
+                                <TimelineContent
+                                    index={index}
+                                    time={event.time}
+                                    title={event.title}
+                                    align="left"
+                                />
+                            )}
+                          </div>
+                        </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
         <section id="rsvp" className="scroll-mt-4 border-y border-line bg-champagne/75 px-5 py-12 sm:px-8 sm:py-16">
           <Reveal className="mx-auto max-w-2xl text-center">
